@@ -41,6 +41,10 @@ function [A,S]=DirichletDCSBMBenchmark(nodes,layers,transitionMatrix,varargin)
 % DCSBMNetworkGenerator, MultiplexMatrix, TemporalMatrix,
 % BlockMultiplexMatrix
 
+% Version: 
+% Date: 
+% Author: 
+% Email: 
 
 % set defaults for all options (note that we force 'IntermediateSteps' to 
 % have its default value since we are not using intermediate results)

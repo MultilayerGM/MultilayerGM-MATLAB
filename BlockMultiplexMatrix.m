@@ -19,6 +19,11 @@ function L=BlockMultiplexMatrix(n_blocks,n_layers,p_in,p_out)
 %
 % Note that p_in+p_out<=1
 
+% Version: 
+% Date: 
+% Author: 
+% Email: 
+
 if nargin<4
     p_out=0;
 end

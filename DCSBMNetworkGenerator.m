@@ -30,6 +30,11 @@ function A=DCSBMNetworkGenerator(S,varargin)
 %   A:  cell array of adjacency matrices for each layer of the sampled
 %       multilayer network
 
+% Version: 
+% Date: 
+% Author: 
+% Email: 
+
 
 options=OptionStruct('exponent',-3,'kmin',3,'kmax',50,'mu',.1,'maxreject',100);
 options.set(varargin);

@@ -14,6 +14,11 @@ function L=MultiplexMatrix(n_layers,p)
 %
 % Note that p<=1
 
+% Version: 
+% Date: 
+% Author: 
+% Email: 
+
 L(1:n_layers,1:n_layers)=p/(n_layers-1);
 L=L-diag(diag(L));
 

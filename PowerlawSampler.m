@@ -15,6 +15,11 @@ function x=PowerlawSampler(n,t,x_min,x_max)
 %
 %   x: sampled values
 
+% Version: 
+% Date: 
+% Author: 
+% Email: 
+
 
 y=rand(n,1);
 if t~=-1

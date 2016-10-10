@@ -1,6 +1,12 @@
 function ndx = subarray2ind(shape,suba)
 %SUBARRAY2IND Linear index from multiple subscripts.
 %   Same as SUB2IND but takes array as input rather than multiple arguments.
+
+% Version: 
+% Date: 
+% Author: 
+% Email: 
+
 shape = double(shape);
 dims = length(shape);
 if size(suba,2)~=dims

@@ -2,6 +2,10 @@ function [sub] = ind2subarray(shape,ind)
 %IND2SUBARRAY Subscripts from linear index. Same as IND2SUB but
 %   returns results as an array instead of separate output arguments.
 
+% Version: 
+% Date: 
+% Author: 
+% Email: 
 
 shape = double(shape);
 dims = length(shape);

@@ -14,6 +14,11 @@ function L=TemporalMatrix(n_layers,p)
 %
 % Note that p<=1
 
+% Version: 
+% Date: 
+% Author: 
+% Email: 
+
 L=zeros(n_layers);
 
 for i=1:n_layers-1

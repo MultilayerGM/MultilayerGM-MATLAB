@@ -83,6 +83,13 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,transitionMatrix,null
 %
 %
 
+% Version: 
+% Date: 
+% Author: 
+% Email: 
+
+
+% Parse input
 
 % check fully-ordered case:
 if any(any(tril(transitionMatrix)))
