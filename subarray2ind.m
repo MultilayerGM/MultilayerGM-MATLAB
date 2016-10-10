@@ -2,10 +2,10 @@ function ndx = subarray2ind(shape,suba)
 %SUBARRAY2IND Linear index from multiple subscripts.
 %   Same as SUB2IND but takes array as input rather than multiple arguments.
 
-% Version: 
-% Date: 
-% Author: 
-% Email: 
+% Version: v1.0-alpha1
+% Date: Mon 10 Oct 2016 16:12:35 EDT
+% Author: Lucas Jeub
+% Email: ljeub@iu.edu
 
 shape = double(shape);
 dims = length(shape);

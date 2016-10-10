@@ -30,10 +30,10 @@ function A=DCSBMNetworkGenerator(S,varargin)
 %   A:  cell array of adjacency matrices for each layer of the sampled
 %       multilayer network
 
-% Version: 
-% Date: 
-% Author: 
-% Email: 
+% Version: v1.0-alpha1
+% Date: Mon 10 Oct 2016 16:12:35 EDT
+% Author: Lucas Jeub
+% Email: ljeub@iu.edu
 
 
 options=OptionStruct('exponent',-3,'kmin',3,'kmax',50,'mu',.1,'maxreject',100);

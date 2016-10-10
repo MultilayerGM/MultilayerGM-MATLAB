@@ -83,10 +83,10 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,null
 %
 %
 
-% Version: 
-% Date: 
-% Author: 
-% Email: 
+% Version: v1.0-alpha1
+% Date: Mon 10 Oct 2016 16:12:35 EDT
+% Author: Lucas Jeub
+% Email: ljeub@iu.edu
 
 
 % Parse input

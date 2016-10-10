@@ -14,10 +14,10 @@ function P=TemporalDependencyMatrix(n_layers,p)
 %
 % Note that p<=1
 
-% Version: 
-% Date: 
-% Author: 
-% Email: 
+% Version: v1.0-alpha1
+% Date: Mon 10 Oct 2016 16:12:35 EDT
+% Author: Lucas Jeub
+% Email: ljeub@iu.edu
 
 if p>1||p<0
     error('MultilayerBenchmark:TemporalDependencies:p',...

@@ -2,10 +2,10 @@ function [sub] = ind2subarray(shape,ind)
 %IND2SUBARRAY Subscripts from linear index. Same as IND2SUB but
 %   returns results as an array instead of separate output arguments.
 
-% Version: 
-% Date: 
-% Author: 
-% Email: 
+% Version: v1.0-alpha1
+% Date: Mon 10 Oct 2016 16:12:35 EDT
+% Author: Lucas Jeub
+% Email: ljeub@iu.edu
 
 shape = double(shape);
 dims = length(shape);

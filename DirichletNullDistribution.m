@@ -35,10 +35,10 @@ function distribution = DirichletNullDistribution(layers,varargin)
 %       (format: [node,aspect_1,...,aspect_d] ) and returns a random
 %       community assignment from 1,...,'communities'
 
-% Version: 
-% Date: 
-% Author: 
-% Email: 
+% Version: v1.0-alpha1
+% Date: Mon 10 Oct 2016 16:12:35 EDT
+% Author: Lucas Jeub
+% Email: ljeub@iu.edu
 
 
 options=OptionStruct('theta',1,'communities',10,'q',1);
