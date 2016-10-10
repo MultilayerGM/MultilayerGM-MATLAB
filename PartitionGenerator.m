@@ -83,7 +83,6 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,transitionMatrix,null
 %
 %
 
-%% Parse input
 
 % check fully-ordered case:
 if any(any(tril(transitionMatrix)))
@@ -114,7 +113,7 @@ else
     error('CommunityStructureGenerator:transitionMatrix:size','Specified transition matrix is of inconsistent size');
 end
 
-%% Sample partitions
+% Sample partitions
 S=zeros([n,layers]);
 if options.isset('IntermediateSteps')
     SIntermediate=cell(ceil(options.UpdateSteps/options.IntermediateSteps)+1,1);
@@ -150,7 +149,7 @@ end
 
 end
 
-%% Gibbs sampling
+% Gibbs sampling
 function S=GibbsPartitionSampler(S,nodes,transitionMap,transitionMatrix,nullDistribution,steps)
 % Run Gibbs sampling
 %
