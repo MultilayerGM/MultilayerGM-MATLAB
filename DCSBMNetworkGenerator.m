@@ -40,10 +40,16 @@ kmin=options.kmin;
 kmax=options.kmax;
 max_reject=options.maxreject;
 
-[n_nodes,n_layers]=size(S);
-A=cell(n_layers,1);
+shape=size(S);
+n_nodes=shape(1);
+layers=shape(2:end);
+if length(layers)==1
+    layers=[layers,1];
+end
+A=cell(layers);
+n_layers=prod(layers);
 for layer=1:n_layers
-    [uc,~,ind]=unique(S(:,layer));
+    [uc,~,ind]=unique(S(:,ind2sub(layers,layer)));
     nc=length(uc);
     G=sparse(1:n_nodes,ind,true,n_nodes,nc);
     group_sizes=sum(G,1);
