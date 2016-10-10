@@ -1,4 +1,4 @@
-function [S,SIntermediate]=PartitionGenerator(nodes,layers,transitionMatrix,nullDistribution,varargin)
+function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,nullDistribution,varargin)
 % Generate partition for a multilayer network
 % with specified interlayer dependencies.
 %
@@ -13,11 +13,11 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,transitionMatrix,null
 %       format [l_1,...,l_d]. Note that for a multilayer network with a
 %       single aspect this is just a scalar giving the number of layers.
 %
-%   transitionMatrix: A matrix of copying probabilities, corresponding to
+%   dependencyMatrix: A matrix of copying probabilities, corresponding to
 %       the flattened interlayer dependency tensor. This matrix is either
 %       of size lxl for the layer-coupled case or of size (n*l)x(n*l) in
 %       the general case. If state nodes are given explicitly in 'nodes',
-%       'transitionMatrix' should be of size |V_M|x|V_M|, giving only the
+%       'dependencyMatrix' should be of size |V_M|x|V_M|, giving only the
 %       probabilities for state nodes that are actually present in the
 %       network.  The ways the matrix encodes the tensor are as follows:
 %
@@ -26,9 +26,9 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,transitionMatrix,null
 %
 %           a=aspect_1+l_1*(aspect_2-1)+...+l_1*l_2*...*l_(d-1)*(aspect_d-1)
 %
-%           where 'transitionMatrix(a,b)' is the probability that a node in
+%           where 'dependencyMatrix(a,b)' is the probability that a node in
 %           layer b copies its community assignment from the same node in
-%           layer a. The rows of 'transitionMatrix' should sum to a value<1,
+%           layer a. The rows of 'dependencyMatrix' should sum to a value<1,
 %           where 1-sum(transtionMatrix(:,b)) is the probability of
 %           resampling the community assignment from the specified null
 %           distribution for a node in layer b.
@@ -44,9 +44,9 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,transitionMatrix,null
 %           nodes, where the ith state node corresponds to the ith row of
 %           the transition matrix.
 %
-%           'transitionMatrix(i,j)' is the probability that
+%           'dependencyMatrix(i,j)' is the probability that
 %           state node j copies its community assignment from state node i.
-%           The rows of 'transitionMatrix' should sum to a value < 1,
+%           The rows of 'dependencyMatrix' should sum to a value < 1,
 %           where 1-sum(transtionMatrix(:,j)) is the probability of
 %           resampling the community assignment from the specified null
 %           distribution for node j.
@@ -92,7 +92,7 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,transitionMatrix,null
 % Parse input
 
 % check fully-ordered case:
-if any(any(tril(transitionMatrix)))
+if any(any(tril(dependencyMatrix)))
     % not fully ordered
     options=OptionStruct('UpdateSteps',100,'IntermediateSteps',[]);
 else
@@ -112,12 +112,12 @@ end
 nvm=size(nodes,1);
 
 % setup map from state nodes to rows of transition matrix
-if isequal(size(transitionMatrix),[l,l])
+if isequal(size(dependencyMatrix),[l,l])
     transitionMap=subarray2ind(layers,nodes(:,2:end));
-elseif isequal(size(transitionMatrix),[nvm,nvm])
+elseif isequal(size(dependencyMatrix),[nvm,nvm])
     transitionMap=(1:nvm)';
 else
-    error('CommunityStructureGenerator:transitionMatrix:size','Specified transition matrix is of inconsistent size');
+    error('CommunityStructureGenerator:dependencyMatrix:size','Specified transition matrix is of inconsistent size');
 end
 
 % Sample partitions
@@ -139,25 +139,25 @@ if options.isset('IntermediateSteps')
     isteps=options.IntermediateSteps;
     it=1;
     while totalsteps+isteps<=usteps
-        S=GibbsPartitionSampler(S,nodes,transitionMap,transitionMatrix,nullDistribution,isteps);
+        S=GibbsPartitionSampler(S,nodes,transitionMap,dependencyMatrix,nullDistribution,isteps);
         totalsteps=totalsteps+isteps;
         it=it+1;
         SIntermediate{it}=S;
     end
     
     if totalsteps<usteps
-        S=GibbsPartitionSampler(S,nodes,transitionMap,transitionMatrix,nullDistribution,usteps-totalsteps);
+        S=GibbsPartitionSampler(S,nodes,transitionMap,dependencyMatrix,nullDistribution,usteps-totalsteps);
         SIntermediate{it+1}=S;
     end
 else
-    S=GibbsPartitionSampler(S,nodes,transitionMap,transitionMatrix,nullDistribution,usteps);
+    S=GibbsPartitionSampler(S,nodes,transitionMap,dependencyMatrix,nullDistribution,usteps);
     SIntermediate{2}=S;
 end
 
 end
 
 % Gibbs sampling
-function S=GibbsPartitionSampler(S,nodes,transitionMap,transitionMatrix,nullDistribution,steps)
+function S=GibbsPartitionSampler(S,nodes,transitionMap,dependencyMatrix,nullDistribution,steps)
 % Run Gibbs sampling
 %
 % Inputs:
@@ -168,9 +168,9 @@ function S=GibbsPartitionSampler(S,nodes,transitionMap,transitionMatrix,nullDist
 %       [node,aspect_1,...,aspect_d]
 %
 %   transitionMap: vector of indeces mapping statenodes to the
-%       corresponding row/column of the transitionMatrix
+%       corresponding row/column of the dependencyMatrix
 %
-%   transitionMatrix: coupling edges (sum(transitionMatrix,1)<=1)
+%   dependencyMatrix: coupling edges (sum(dependencyMatrix,1)<=1)
 %
 %   nullDistribution: function (statenode->random community assignment)
 %
@@ -181,12 +181,12 @@ function S=GibbsPartitionSampler(S,nodes,transitionMap,transitionMatrix,nullDist
 %   S: updated partiton after 'steps' passes over all state nodes
 
 
-not_resample=full(sum(transitionMatrix,1));
-LW=cumsum(transitionMatrix,1);
+not_resample=full(sum(dependencyMatrix,1));
+LW=cumsum(dependencyMatrix,1);
 
 size_spec=size(S);
 
-if size(transitionMatrix,1)<size(nodes,1)
+if size(dependencyMatrix,1)<size(nodes,1)
     % layer-coupled
     for i=1:steps
         for j=1:size(nodes,1)

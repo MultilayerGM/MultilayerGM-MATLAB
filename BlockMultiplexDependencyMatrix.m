@@ -1,5 +1,5 @@
-function L=BlockMultiplexMatrix(n_blocks,n_layers,p_in,p_out)
-% Generate a block-multiplex transition matrix
+function P=BlockMultiplexDependencyMatrix(n_blocks,n_layers,p_in,p_out)
+% Generate a block-multiplex dependency matrix
 %
 % Input: 
 %   
@@ -15,7 +15,7 @@ function L=BlockMultiplexMatrix(n_blocks,n_layers,p_in,p_out)
 %
 % Output:
 %
-%   L: transition matrix for use with PartitionGenerator
+%   P: Dependency matrix for use with PartitionGenerator
 %
 % Note that p_in+p_out<=1
 
@@ -36,6 +36,6 @@ end
 A=(ones(n_layers)-eye(n_layers))*p_in/(n_layers-1);
 B=ones(n_layers)*p_out/(n_layers*(n_blocks-1));
 
-L=kron(eye(n_blocks),A)+kron(ones(n_blocks)-eye(n_blocks),B);
+P=kron(eye(n_blocks),A)+kron(ones(n_blocks)-eye(n_blocks),B);
 
 end

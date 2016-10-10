@@ -1,4 +1,4 @@
-function [A,S]=DirichletDCSBMBenchmark(nodes,layers,transitionMatrix,varargin)
+function [A,S]=DirichletDCSBMBenchmark(nodes,layers,dependencyMatrix,varargin)
 % Generate uniform multiplex benchmark networks
 %
 % Input:
@@ -7,7 +7,7 @@ function [A,S]=DirichletDCSBMBenchmark(nodes,layers,transitionMatrix,varargin)
 %
 %   layers: Number of layers for each aspect
 %
-%   transitionMatrix: matrix of copying probabilities
+%   dependencyMatrix: matrix of copying probabilities
 %
 % Output:
 %
@@ -63,7 +63,7 @@ NullOptions.setvalid(options);
 NetworkOptions.setvalid(options);
 
 % generate partition using Dirichlet null distribution
-S=PartitionGenerator(nodes,layers,transitionMatrix,...
+S=PartitionGenerator(nodes,layers,dependencyMatrix,...
     DirichletNullDistribution(layers,NullOptions),PartitionOptions);
 
 % generate intralayer edges using DCSBM benchmark model

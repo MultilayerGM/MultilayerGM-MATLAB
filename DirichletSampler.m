@@ -17,6 +17,11 @@ function weights=DirichletSampler(theta,q,nc)
 %       distribution)
 %
 
+% Version: 
+% Date: 
+% Author: 
+% Email: 
+
 weights=zeros(nc,1);
 active=find(rand(nc,1)<=q);
 
