@@ -36,6 +36,7 @@ function A=DCSBMNetworkGenerator(S,varargin)
 % Email: ljeub@iu.edu
 
 
+% parse options
 options=OptionStruct('exponent',-3,'kmin',3,'kmax',50,'mu',.1,'maxreject',100);
 options.set(varargin);
 
@@ -48,11 +49,15 @@ max_reject=options.maxreject;
 shape=size(S);
 n_nodes=shape(1);
 layers=shape(2:end);
+
+% avoid problems with dimension when we have only one aspect
 if length(layers)==1
     layers=[layers,1];
 end
-A=cell(layers);
+
 n_layers=prod(layers);
+A=cell(layers);
+
 for layer=1:n_layers
     [uc,~,ind]=unique(S(:,ind2sub(layers,layer)));
     nc=length(uc);
@@ -85,10 +90,7 @@ for layer=1:n_layers
                 dense=2*m>group_sizes(group1)*group_sizes(group2);
             end
             
-            
             if dense
-                disp('dense');
-                
                 % use binomial sampling if block is dense
                 sigma1=k(G(:,group1))./sum(k(G(:,group1)));
                 sigma2=k(G(:,group2))./sum(k(G(:,group2)));
@@ -100,23 +102,26 @@ for layer=1:n_layers
                 if group1==group2
                     for it=1:ng1
                         nid=find(P(it,it+1:end)>rand(1,ng1-it))+it;
-                        neighbours{nodes_g1(it)}=[neighbours{nodes_g1(it)},nodes_g2(nid)];
+                        neighbours{nodes_g1(it)}=...
+                            [neighbours{nodes_g1(it)},nodes_g2(nid)];
                         for it2=1:length(nid)
-                            neighbours{nodes_g2(nid(it2))}=[neighbours{nodes_g2(nid(it2))},nodes_g1(it)];
+                            neighbours{nodes_g2(nid(it2))}=...
+                                [neighbours{nodes_g2(nid(it2))},nodes_g1(it)];
                         end
                     end
                 else
                     for it=1:ng1
                         nid=find(P(it,:)>rand(1,ng2));
-                        neighbours{nodes_g1(it)}=[neighbours{nodes_g1(it)},nodes_g2(nid)];
+                        neighbours{nodes_g1(it)}=...
+                            [neighbours{nodes_g1(it)},nodes_g2(nid)];
                         for it2=1:length(nid)
-                            neighbours{nodes_g2(nid(it2))}=[neighbours{nodes_g2(nid(it2))},nodes_g1(it)];
+                            neighbours{nodes_g2(nid(it2))}=...
+                                [neighbours{nodes_g2(nid(it2))},nodes_g1(it)];
                         end
                     end
                 end
                 
             else
-                
                 % sample the edges
                 sigma1=cumsum(k(G(:,group1)));
                 sigma1=sigma1./sigma1(end);
