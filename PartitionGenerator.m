@@ -97,7 +97,7 @@ if any(any(tril(dependencyMatrix)))
     options=OptionStruct('UpdateSteps',100,'IntermediateSteps',[]);
 else
     % fully ordered, no need for multiple updates
-    options=OptionStrut('UpdateSteps',1,'IntermediateSteps',[]);
+    options=OptionStruct('UpdateSteps',1,'IntermediateSteps',[]);
 end
 options.set(varargin);
 
