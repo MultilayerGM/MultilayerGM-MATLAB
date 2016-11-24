@@ -41,10 +41,10 @@ function [A,S]=DirichletDCSBMBenchmark(nodes,layers,dependencyMatrix,varargin)
 % DCSBMNetworkGenerator, MultiplexMatrix, TemporalMatrix,
 % BlockMultiplexMatrix
 %
-% Version: v1.0-alpha1
-% Date: Mon 10 Oct 2016 16:12:35 EDT
+% Version: v1.0-beta1
+% Date: Thu 24 Nov 2016 15:13:51 EST
 % Author: Lucas Jeub
-% Email: ljeub@iu.edu
+% Email: jeub@maths.ox.ac.uk
 %
 % References:
 % 
