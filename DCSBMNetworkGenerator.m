@@ -29,11 +29,24 @@ function A=DCSBMNetworkGenerator(S,varargin)
 %
 %   A:  cell array of adjacency matrices for each layer of the sampled
 %       multilayer network
-
+%
 % Version: v1.0-alpha1
 % Date: Mon 10 Oct 2016 16:12:35 EDT
 % Author: Lucas Jeub
 % Email: ljeub@iu.edu
+%
+% References:
+% 
+%       [1] Generative benchmark models for mesoscale structure in multilayer 
+%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A. 
+%       Porter. arXiv1:608.06196.
+%
+% Citation: 
+%
+%       If you use this code, please cite as
+%       Lucas G. S. Jeub and Marya Bazzi
+%       "A generative model for mesoscale structure in multilayer networks 
+%       implemented in MATLAB," [insert website] (2016).
 
 
 % parse options

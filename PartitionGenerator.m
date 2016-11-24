@@ -22,7 +22,7 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,null
 %       network.  The ways the matrix encodes the tensor are as follows:
 %
 %       layer-coupled case:
-%           Mapping for flattening the indeces:
+%           Mapping for flattening the indices:
 %
 %           a=aspect_1+l_1*(aspect_2-1)+...+l_1*l_2*...*l_(d-1)*(aspect_d-1)
 %
@@ -82,11 +82,25 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,null
 %       consistent with having converged.
 %
 %
-
+%
 % Version: v1.0-alpha1
 % Date: Mon 10 Oct 2016 16:12:35 EDT
 % Author: Lucas Jeub
 % Email: ljeub@iu.edu
+%
+%
+% References:
+% 
+%       [1] Generative benchmark models for mesoscale structure in multilayer 
+%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A. 
+%       Porter. arXiv1:608.06196.
+%
+% Citation: 
+%
+%       If you use this code, please cite as
+%       Lucas G. S. Jeub and Marya Bazzi
+%       "A generative model for mesoscale structure in multilayer networks 
+%       implemented in MATLAB," [insert website] (2016).
 
 
 % Parse input

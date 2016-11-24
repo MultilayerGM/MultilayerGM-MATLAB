@@ -18,11 +18,24 @@ function P=BlockMultiplexDependencyMatrix(n_blocks,n_layers,p_in,p_out)
 %   P: Dependency matrix for use with PartitionGenerator
 %
 % Note that p_in+p_out<=1
-
+%
 % Version: v1.0-alpha1
 % Date: Mon 10 Oct 2016 16:12:35 EDT
 % Author: Lucas Jeub
 % Email: ljeub@iu.edu
+%
+% References:
+% 
+%       [1] Generative benchmark models for mesoscale structure in multilayer 
+%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A. 
+%       Porter. arXiv1:608.06196.
+%
+% Citation: 
+%
+%       If you use this code, please cite as
+%       Lucas G. S. Jeub and Marya Bazzi
+%       "A generative model for mesoscale structure in multilayer networks 
+%       implemented in MATLAB," [insert website] (2016).
 
 if nargin<4
     p_out=0;

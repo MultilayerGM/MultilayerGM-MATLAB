@@ -1,40 +1,40 @@
 classdef OptionStruct < matlab.mixin.Copyable
-    % Class for option parsing based on structs.
-    % Construct with OptionStruct(options), where options is either:
-    %       a list of possible options
-    %       key value pairs (listing option names and their defaults)
-    %       a struct
-    %       an OptionStruct (copies the option struct)
-    %
-    % Existing options can be accessed and changed using struct syntax.
-    % (i.e. OptionStruct.option)
-    % New options can only be added at construction time.
-    %
-    % methods:
-    %   set('key',value,...): set option values using key-value list
-    %       (does not create new fields and errors for non-existing
-    %       options)
-    %   set(struct): set options using struct (errors for non-existing
-    %       options)
-    %
-    %   setvalid('key',value,...): set valid options from key-value list,
-    %       returns the unused key-value pairs.
-    %   
-    %   setvalid(struct): set valid options from struct, returns the unused
-    %       key-value pairs as a struct
-    %
-    %   isfield('field'): check whether field 'field' exists
-    %
-    %   isset('field'): check whether option 'field' is set (i.e. not
-    %       empty). Can also take a cell array of strings, and than
-    %       returns a logical vector.
-    %
-    %   list(): return options as key-value list
-    %
-    %   struct(): return options as struct
-    %
-    % properties: options: used to get a list of options
-    
+% Class for option parsing based on structs.
+% Construct with OptionStruct(options), where options is either:
+%       a list of possible options
+%       key value pairs (listing option names and their defaults)
+%       a struct
+%       an OptionStruct (copies the option struct)
+%
+% Existing options can be accessed and changed using struct syntax.
+% (i.e. OptionStruct.option)
+% New options can only be added at construction time.
+%
+% methods:
+%   set('key',value,...): set option values using key-value list
+%       (does not create new fields and errors for non-existing
+%       options)
+%   set(struct): set options using struct (errors for non-existing
+%       options)
+%
+%   setvalid('key',value,...): set valid options from key-value list,
+%       returns the unused key-value pairs.
+%   
+%   setvalid(struct): set valid options from struct, returns the unused
+%       key-value pairs as a struct
+%
+%   isfield('field'): check whether field 'field' exists
+%
+%   isset('field'): check whether option 'field' is set (i.e. not
+%       empty). Can also take a cell array of strings, and than
+%       returns a logical vector.
+%
+%   list(): return options as key-value list
+%
+%   struct(): return options as struct
+%
+% properties: options: used to get a list of options
+% 
 % Version: v1.0-alpha1
 % Date: Mon 10 Oct 2016 16:12:35 EDT
 % Author: Lucas Jeub
