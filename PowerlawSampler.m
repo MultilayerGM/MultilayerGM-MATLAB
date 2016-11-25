@@ -15,10 +15,10 @@ function x=PowerlawSampler(n,t,x_min,x_max)
 %
 %   x: sampled values
 %
-% Version: v1.0-beta1
-% Date: Thu 24 Nov 2016 15:13:51 EST
+% Version: v1.0
+% Date: Fri 25 Nov 2016 16:24:28 EST
 % Author: Lucas Jeub
-% Email: jeub@maths.ox.ac.uk
+% Email: ljeub@iu.edu
 %
 %
 % References:

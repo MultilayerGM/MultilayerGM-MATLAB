@@ -19,10 +19,10 @@ function P=BlockMultiplexDependencyMatrix(n_blocks,n_layers,p_in,p_out)
 %
 % Note that p_in+p_out<=1
 %
-% Version: v1.0-beta1
-% Date: Thu 24 Nov 2016 15:13:51 EST
+% Version: v1.0
+% Date: Fri 25 Nov 2016 16:24:28 EST
 % Author: Lucas Jeub
-% Email: jeub@maths.ox.ac.uk
+% Email: ljeub@iu.edu
 %
 % References:
 % 
