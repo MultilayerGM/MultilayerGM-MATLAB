@@ -2,7 +2,7 @@
 ### released November 2016
 
 Please cite this code as
-    Lucas G. S. Jeub and M. Bazzi
+    Lucas G. S. Jeub and Marya Bazzi
     *"A generative model for mesoscale structure in multilayer networks implemented 
     in MATLAB,"* [insert website] (2016)
 
@@ -19,7 +19,7 @@ To use this code, the minimal input that needs to be specified by a user is:
 
 - number of nodes in each layer
 - number of layers, and 
-- an interlayer dependency tensor that specifies the desired dependency structure between layers (note that the order of the layers, whenever present, needs to be respected in the interlayer dependency tensor). We include three useful examples of interlayer dependency tensor in ```TemporalDependencyMatrix.m```, ```MultiplexDependencyMatrix.m```, and ```BlockMultiplexDependencyMatrix.m```
+- an interlayer dependency tensor that specifies the desired dependency structure between layers (note that the order of the layers, whenever present, needs to be respected in the interlayer dependency tensor). We include three useful examples of interlayer dependency tensors in ```TemporalDependencyMatrix.m```, ```MultiplexDependencyMatrix.m```, and ```BlockMultiplexDependencyMatrix.m```
 
 The subroutines (1) and (2) have various parameters (which we set to a default parameter choice) that a user can modify as needed. For example, one can:
 
