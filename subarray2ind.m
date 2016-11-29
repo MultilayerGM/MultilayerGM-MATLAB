@@ -19,7 +19,7 @@ function ndx = subarray2ind(shape,suba)
 %       If you use this code, please cite as
 %       Lucas G. S. Jeub and Marya Bazzi
 %       "A generative model for mesoscale structure in multilayer networks 
-%       implemented in MATLAB," [insert website] (2016).
+%       implemented in MATLAB," https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016).
 
 shape = double(shape);
 dims = length(shape);

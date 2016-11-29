@@ -4,7 +4,7 @@
 Please cite this code as
     Lucas G. S. Jeub and Marya Bazzi
     *"A generative model for mesoscale structure in multilayer networks implemented 
-    in MATLAB,"* [insert website] (2016)
+    in MATLAB,"* https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016)
 
 This package consists of code for the generative model in [1]. It allows a user to generate multilayer networks with planted mesoscale structure (e.g., community structure) in a principled and customisable way. 
 

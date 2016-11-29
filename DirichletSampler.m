@@ -33,7 +33,7 @@ function weights=DirichletSampler(theta,q,nc)
 %       If you use this code, please cite as
 %       Lucas G. S. Jeub and Marya Bazzi
 %       "A generative model for mesoscale structure in multilayer networks 
-%       implemented in MATLAB," [insert website] (2016).
+%       implemented in MATLAB," https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016).
 
 weights=zeros(nc,1);
 active=find(rand(nc,1)<=q);
