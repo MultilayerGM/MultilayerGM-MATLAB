@@ -43,7 +43,7 @@ More extensive documentation is provided in each function and example use of thi
 
 ##References:
 
-[1] Generative benchmark models for mesoscale structure in multilayer networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A. Porter. arXiv1:608.06196.
+[1] Generative benchmark models for mesoscale structure in multilayer networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A. Porter. arXiv:1608.06196.
 
 ##Acknowledgments:
 
