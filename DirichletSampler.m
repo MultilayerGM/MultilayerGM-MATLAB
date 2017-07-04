@@ -16,8 +16,8 @@ function weights=DirichletSampler(theta,q,nc)
 %       distribution)
 %
 %
-% Version: v1.0
-% Date: Fri 25 Nov 2016 16:24:28 EST
+% Version: 1.0.1
+% Date: Tue  4 Jul 2017 16:38:06 BST
 % Author: Lucas Jeub
 % Email: ljeub@iu.edu
 %

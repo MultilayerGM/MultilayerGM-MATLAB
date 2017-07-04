@@ -34,8 +34,8 @@ function distribution = DirichletNullDistribution(layers,varargin)
 %       (format: [node,aspect_1,...,aspect_d] ) and returns a random
 %       community assignment from 1,...,'communities'
 %
-% Version: v1.0
-% Date: Fri 25 Nov 2016 16:24:28 EST
+% Version: 1.0.1
+% Date: Tue  4 Jul 2017 16:38:06 BST
 % Author: Lucas Jeub
 % Email: ljeub@iu.edu
 %
