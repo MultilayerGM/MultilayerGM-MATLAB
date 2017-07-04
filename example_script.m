@@ -53,7 +53,7 @@ n_layers = 100;
 n_nodes = 150;
 
 p = 0.95; p_change = 0; 
-p_CP = pvec(pit)*ones(n_layers-1,1);
+p_CP = p*ones(n_layers-1,1);
 p_CP(25) = p_change; p_CP(50) = p_change; p_CP(75) = p_change;
 
 L = diag(p_CP,1);
