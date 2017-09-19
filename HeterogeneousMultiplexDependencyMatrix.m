@@ -1,4 +1,4 @@
-function P=HeterogeneousMutiplexDependencyMatrix(n_layers,n_blocks,p_in,p_out)
+function P=HeterogeneousMultiplexDependencyMatrix(n_layers,n_blocks,p_in,p_out)
 % Generate a heterogeneous multiplex dependency matrix
 %
 % Input: 
