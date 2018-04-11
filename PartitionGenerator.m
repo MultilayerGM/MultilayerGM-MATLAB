@@ -55,6 +55,9 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,null
 %       of the form [node, aspect_1,...,aspect_d] ) as input and returns a
 %       random community assignment.
 %
+%   initialPartition: Optionally specify starting partition (array of
+%       dimension nxl_1x...xl_d).
+%
 % Output:
 %
 %   S: Multilayer partition after the last update step (returned as an
@@ -90,16 +93,16 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,null
 %
 %
 % References:
-% 
-%       [1] Generative benchmark models for mesoscale structure in multilayer 
-%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A. 
+%
+%       [1] Generative benchmark models for mesoscale structure in multilayer
+%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A.
 %       Porter. arXiv1:608.06196.
 %
-% Citation: 
+% Citation:
 %
 %       If you use this code, please cite as
 %       Lucas G. S. Jeub and Marya Bazzi
-%       "A generative model for mesoscale structure in multilayer networks 
+%       "A generative model for mesoscale structure in multilayer networks
 %       implemented in MATLAB," https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016).
 
 
@@ -108,10 +111,10 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,null
 % check fully-ordered case:
 if any(any(tril(dependencyMatrix)))
     % not fully ordered
-    options=OptionStruct('UpdateSteps',100,'IntermediateSteps',[]);
+    options=OptionStruct('UpdateSteps',100,'IntermediateSteps',[],'InitialPartition',[]);
 else
     % fully ordered, no need for multiple updates
-    options=OptionStruct('UpdateSteps',1,'IntermediateSteps',[]);
+    options=OptionStruct('UpdateSteps',1,'IntermediateSteps',[],'InitialPartition',[]);
 end
 options.set(varargin);
 
@@ -142,8 +145,12 @@ else
     SIntermediate=cell(2,1);
 end
 
-for i=1:size(nodes,1)
-    S(subarray2ind([n,layers],nodes(i,:)))=nullDistribution(nodes(i,:));
+if options.isset('InitialPartition')
+    S=options.InitialPartition;
+else
+    for i=1:size(nodes,1)
+        S(subarray2ind([n,layers],nodes(i,:)))=nullDistribution(nodes(i,:));
+    end
 end
 SIntermediate{1}=S;
 usteps=options.UpdateSteps;
