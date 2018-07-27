@@ -53,9 +53,12 @@ function distribution = DirichletNullDistribution(layers,varargin)
 %       "A generative model for mesoscale structure in multilayer networks 
 %       implemented in MATLAB," https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016).
 
-
-options=OptionStruct('theta',1,'communities',10,'q',1);
-options.set(varargin);
+parseArgs=inputParser();
+addParameter(parseArgs,'theta',1);
+addParameter(parseArgs,'communities',10);
+addParameter(parseArgs,'q',1);
+parse(parseArgs,varargin{:});
+options=parseArgs.Results;
 
 % set up null distribution
 weights=zeros([options.communities,layers]);

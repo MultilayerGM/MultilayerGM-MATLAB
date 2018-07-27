@@ -2,8 +2,8 @@ function [A,S]=DirichletDCSBMBenchmark(nodes,layers,dependencyMatrix,varargin)
 % Generate multi-aspect multilayer networks with a DCSBM planted partition model
 %
 % Input:
-% 
-%   nodes: Number of physical nodes 
+%
+%   nodes: Number of physical nodes
 %
 %   layers: Number of layers for each aspect
 %
@@ -33,8 +33,8 @@ function [A,S]=DirichletDCSBMBenchmark(nodes,layers,dependencyMatrix,varargin)
 %
 %   mu: [0.1] fraction of random edges
 %
-%   maxreject: [100] maximum number of rejections before bailing out and 
-%       issuing a warning (the resulting network has less than the desired 
+%   maxreject: [100] maximum number of rejections before bailing out and
+%       issuing a warning (the resulting network has less than the desired
 %       number of edges)
 %
 % see also: PartitionGenerator, DirichletNullDistribution,
@@ -47,34 +47,43 @@ function [A,S]=DirichletDCSBMBenchmark(nodes,layers,dependencyMatrix,varargin)
 % Email: ljeub@iu.edu
 %
 % References:
-% 
-%       [1] Generative benchmark models for mesoscale structure in multilayer 
-%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A. 
+%
+%       [1] Generative benchmark models for mesoscale structure in multilayer
+%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A.
 %       Porter. arXiv1:608.06196.
 %
-% Citation: 
+% Citation:
 %
 %       If you use this code, please cite as
 %       Lucas G. S. Jeub and Marya Bazzi
-%       "A generative model for mesoscale structure in multilayer networks 
+%       "A generative model for mesoscale structure in multilayer networks
 %       implemented in MATLAB," https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016).
 
 
-% set defaults for all options (note that we force 'IntermediateSteps' to 
+% set defaults for all options (note that we force 'IntermediateSteps' to
 % have its default value since we are not using intermediate results)
-options=OptionStruct('UpdateSteps',100,'theta',1,'communities',10,'q',1,...
-    'exponent',-3,'kmin',3,'kmax',50,'mu',0.1,'maxreject',100);
+parsePartitionOptions=inputParser();
+parsePartitionOptions.KeepUnmatched=true;
+addParameter(parsePartitionOptions,'UpdateSteps',[]);
+parse(parsePartitionOptions,varargin{:});
+PartitionOptions=NonDefaultOptions(parsePartitionOptions);
 
-% set up options for sub-functions
-PartitionOptions=OptionStruct('UpdateSteps','IntermediateSteps');
-NullOptions=OptionStruct('theta','communities','q');
-NetworkOptions=OptionStruct('exponent','kmin','kmax','mu','maxreject');
+parseNullOptions=inputParser();
+parseNullOptions.KeepUnmatched=true;
+addParameter(parseNullOptions,'theta',[]);
+addParameter(parseNullOptions,'communities',[]);
+addParameter(parseNullOptions,'q',[]);
+parse(parseNullOptions,parsePartitionOptions.Unmatched);
+NullOptions=NonDefaultOptions(parseNullOptions);
 
-options.set(varargin) % error if invalid options specified
-
-PartitionOptions.setvalid(options); % extract options
-NullOptions.setvalid(options);
-NetworkOptions.setvalid(options);
+parseNetworkOptions=inputParser();
+addParameter(parseNetworkOptions,'exponent',[]);
+addParameter(parseNetworkOptions,'kmin',[]);
+addParameter(parseNetworkOptions,'kmax',[]);
+addParameter(parseNetworkOptions,'mu',[]);
+addParameter(parseNetworkOptions,'maxreject',[]);
+parse(parseNetworkOptions,parseNullOptions.Unmatched);
+NetworkOptions=NonDefaultOptions(parseNetworkOptions);
 
 % generate partition using Dirichlet null distribution
 S=PartitionGenerator(nodes,layers,dependencyMatrix,...
@@ -85,4 +94,12 @@ A=DCSBMNetworkGenerator(S,NetworkOptions);
 
 end
 
-
+function options=NonDefaultOptions(input)
+    fields=fieldnames(input.Results);
+    options=struct();
+    for i=1:numel(fields)
+        if ~ismember(fields{i},input.UsingDefaults)
+            options.(fields{i})=input.Results.(fields{i});
+        end
+    end
+end

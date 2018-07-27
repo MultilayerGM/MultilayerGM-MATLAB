@@ -50,8 +50,14 @@ function A=DCSBMNetworkGenerator(S,varargin)
 
 
 % parse options
-options=OptionStruct('exponent',-3,'kmin',3,'kmax',50,'mu',.1,'maxreject',100);
-options.set(varargin);
+parseArgs=inputParser();
+addParameter(parseArgs,'exponent',-3)
+addParameter(parseArgs,'kmin',3)
+addParameter(parseArgs,'kmax',50)
+addParameter(parseArgs,'mu',.1)
+addParameter(parseArgs,'maxreject',100);
+parse(parseArgs,varargin{:});
+options=parseArgs.Results;
 
 mu=options.mu;
 exponent=options.exponent;

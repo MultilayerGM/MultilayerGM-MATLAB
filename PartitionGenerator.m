@@ -107,16 +107,20 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,null
 
 
 % Parse input
-
+parseArgs=inputParser();
+addParameter(parseArgs,'IntermediateSteps',[]);
+addParameter(parseArgs,'InitialPartition',[]);
 % check fully-ordered case:
 if any(any(tril(dependencyMatrix)))
     % not fully ordered
-    options=OptionStruct('UpdateSteps',100,'IntermediateSteps',[],'InitialPartition',[]);
+    addParameter(parseArgs,'UpdateSteps',100);
 else
     % fully ordered, no need for multiple updates
-    options=OptionStruct('UpdateSteps',1,'IntermediateSteps',[],'InitialPartition',[]);
+    addParameter(parseArgs,'UpdateSteps',1);
 end
-options.set(varargin);
+parse(parseArgs,varargin{:});
+options=parseArgs.Results;
+options.isset=@(s) ~isempty(options.(s));
 
 % determine network shape and set up state nodes if not given explicitly
 l=prod(layers);
