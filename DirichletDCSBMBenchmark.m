@@ -45,9 +45,9 @@ function [A,S]=DirichletDCSBMBenchmark(nodes,layers,types,dependencyMatrix,varar
 % BlockMultiplexMatrix
 %
 % Version: 2.0.0
-% Date: Thu 11 Jul 2019 15:17:48 CEST
+% Date: Thu 11 Jul 2019 15:24:15 CEST
 % Author: Lucas Jeub
-% Email: ljeub@iu.edu
+% Email: lucasjeub@gmail.com
 %
 % References:
 %

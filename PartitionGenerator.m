@@ -80,9 +80,9 @@ function [S]=PartitionGenerator(nodes,layers,types,dependencyMatrix,nullDistribu
 %
 %
 % Version: 2.0.0
-% Date: Thu 11 Jul 2019 15:17:48 CEST
+% Date: Thu 11 Jul 2019 15:24:15 CEST
 % Author: Lucas Jeub
-% Email: ljeub@iu.edu
+% Email: lucasjeub@gmail.com
 %
 %
 % References:
