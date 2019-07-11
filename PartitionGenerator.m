@@ -139,7 +139,7 @@ else
 end
 
 if all(types=='o')
-    usteps = 1
+    usteps = 1;
 else
     usteps=options.UpdateSteps;
 end
