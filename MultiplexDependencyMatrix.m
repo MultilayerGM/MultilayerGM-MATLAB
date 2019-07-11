@@ -1,8 +1,8 @@
 function P=MultiplexDependencyMatrix(n_layers,p)
 % Generate a uniform multiplex dependency matrix
 %
-% Input: 
-%   
+% Input:
+%
 %   n_layers: number of layers
 %
 %   p: probability for a state node to copy its community assignment from
@@ -21,16 +21,16 @@ function P=MultiplexDependencyMatrix(n_layers,p)
 % Email: ljeub@iu.edu
 %
 % References:
-% 
-%       [1] Generative benchmark models for mesoscale structure in multilayer 
-%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A. 
+%
+%       [1] Generative benchmark models for mesoscale structure in multilayer
+%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A.
 %       Porter. arXiv1:608.06196.
 %
-% Citation: 
+% Citation:
 %
 %       If you use this code, please cite as
 %       Lucas G. S. Jeub and Marya Bazzi
-%       "A generative model for mesoscale structure in multilayer networks 
+%       "A generative model for mesoscale structure in multilayer networks
 %       implemented in MATLAB," https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016).
 %
 
