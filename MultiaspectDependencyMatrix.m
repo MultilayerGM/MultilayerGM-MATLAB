@@ -58,5 +58,7 @@ function P=MultiaspectDependencyMatrix(layers, p, type)
           case {'t', 'o'}
               C = diag(ones(size-1,1),1);
               C = C * p;
+          otherwise
+              error('unknown coupling type %s', type)
       end
   end
