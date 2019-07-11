@@ -9,17 +9,17 @@ function [sub] = ind2subarray(shape,ind)
 %
 %
 % References:
-% 
-%       [1] Generative benchmark models for mesoscale structure in multilayer 
-%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A. 
+%
+%       [1] Generative benchmark models for mesoscale structure in multilayer
+%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A.
 %       Porter. arXiv1:608.06196.
 %
-% Citation: 
+% Citation:
 %
 %       If you use this code, please cite as
 %       Lucas G. S. Jeub and Marya Bazzi
-%       "A generative model for mesoscale structure in multilayer networks 
-%       implemented in MATLAB," https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016).
+%       "A generative model for mesoscale structure in multilayer networks
+%       implemented in MATLAB," https://github.com/MultilayerGM/MultilayerGM-MATLAB (2016-2019).
 
 shape = double(shape);
 dims = length(shape);
@@ -38,4 +38,3 @@ end
 sub(:,1)=ind;
 
 end
-

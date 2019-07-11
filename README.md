@@ -4,7 +4,7 @@
 Please cite this code as
     Lucas G. S. Jeub and Marya Bazzi
     *"A generative model for mesoscale structure in multilayer networks implemented
-    in MATLAB,"* https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016)
+    in MATLAB,"* https://github.com/MultilayerGM/MultilayerGM-MATLAB (2016-2019)
 
 This package consists of code for the generative model in [1]. It allows a user to generate multilayer networks with planted mesoscale structure (e.g., community structure) in a principled and customisable way.
 
@@ -40,7 +40,7 @@ Note that Version 1.0 and 2.0 of the code only generate (interdependent) intrala
 
 More extensive documentation is provided in each function and example use of this code is provided in ```examples_script.m```. See also [1] for a detailed explanation of our generative model (see in particular Section 3 "Generating Sampled Multilayer Partitions" and Section 4 "Sampling Network Edges").
 
-##Changes in Version 2.0
+## Changes in Version 2.0
 
 - added support for sampling multilayer partitions with a mix of ordered and unordered aspects using a combination of sequential and pseudo-Gibbs sampling
 
@@ -49,10 +49,10 @@ More extensive documentation is provided in each function and example use of thi
 - added function to plot convergence test statistics
 
 
-##References:
+## References:
 
 [1] Generative benchmark models for mesoscale structure in multilayer networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A. Porter. arXiv:1608.06196.
 
-##Acknowledgments:
+## Acknowledgments:
 
 A special thank you to Sam D. Howison, Mason A. Porter, and Alex Arenas for contributing ideas that have helped develop our generative model for mesoscale structure in multilayer networks.

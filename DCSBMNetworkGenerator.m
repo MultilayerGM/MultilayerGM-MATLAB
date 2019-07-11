@@ -36,17 +36,17 @@ function A=DCSBMNetworkGenerator(S,varargin)
 % Email: lucasjeub@gmail.com
 %
 % References:
-% 
-%       [1] Generative benchmark models for mesoscale structure in multilayer 
-%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A. 
+%
+%       [1] Generative benchmark models for mesoscale structure in multilayer
+%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A.
 %       Porter. arXiv1:608.06196.
 %
-% Citation: 
+% Citation:
 %
 %       If you use this code, please cite as
 %       Lucas G. S. Jeub and Marya Bazzi
-%       "A generative model for mesoscale structure in multilayer networks 
-%       implemented in MATLAB," https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016).
+%       "A generative model for mesoscale structure in multilayer networks
+%       implemented in MATLAB," https://github.com/MultilayerGM/MultilayerGM-MATLAB (2016-2019).
 
 
 % parse options
@@ -101,14 +101,14 @@ for layer=1:n_layers
             end
             % actual number of edges is poisson distributed
             m=poissrnd(w);
-            
+
             if group1==group2
                 dense=2*m>group_sizes(group1)*(group_sizes(group1)-1);
                 m=m/2;
             else
                 dense=2*m>group_sizes(group1)*group_sizes(group2);
             end
-            
+
             if dense
                 % use binomial sampling if block is dense
                 sigma1=k(G(:,group1))./sum(k(G(:,group1)));
@@ -139,7 +139,7 @@ for layer=1:n_layers
                         end
                     end
                 end
-                
+
             else
                 % sample the edges
                 sigma1=cumsum(k(G(:,group1)));
@@ -171,7 +171,7 @@ for layer=1:n_layers
             end
         end
     end
-    
+
     % convert neighbour-list to adjacency matrix (note that first
     % neighbour is node itself and should not be included in output)
     indrow=zeros(2*pos,1);
@@ -187,8 +187,3 @@ for layer=1:n_layers
     A{layer}=sparse(indrow,indcol,1,n_nodes,n_nodes);
 end
 end
-
-
-
-
-

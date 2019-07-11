@@ -1,8 +1,8 @@
 function P=HeterogeneousMultiplexDependencyMatrix(n_layers,n_blocks,p_in,p_out)
 % Generate a heterogeneous multiplex dependency matrix
 %
-% Input: 
-%   
+% Input:
+%
 %   n_layers: number of layers
 %
 %   n_blocks: number of blocks
@@ -11,7 +11,7 @@ function P=HeterogeneousMultiplexDependencyMatrix(n_layers,n_blocks,p_in,p_out)
 %       corresponding state nodes in other layers in the same block
 %
 %   p_out: probability for a state node to copy its community assignment
-%       from corresponding state nodes in other layers in different blocks 
+%       from corresponding state nodes in other layers in different blocks
 %
 % Output:
 %
@@ -26,17 +26,17 @@ function P=HeterogeneousMultiplexDependencyMatrix(n_layers,n_blocks,p_in,p_out)
 % Email: lucasjeub@gmail.com
 %
 % References:
-% 
-%       [1] Generative benchmark models for mesoscale structure in multilayer 
-%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A. 
+%
+%       [1] Generative benchmark models for mesoscale structure in multilayer
+%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A.
 %       Porter. arXiv1:608.06196.
 %
-% Citation: 
+% Citation:
 %
 %       If you use this code, please cite as
 %       Lucas G. S. Jeub and Marya Bazzi
-%       "A generative model for mesoscale structure in multilayer networks 
-%       implemented in MATLAB," https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016).
+%       "A generative model for mesoscale structure in multilayer networks
+%       implemented in MATLAB," https://github.com/MultilayerGM/MultilayerGM-MATLAB (2016-2019).
 %
 block_size=floor(n_layers/n_blocks);
 S=ones(n_layers,1)*n_blocks;

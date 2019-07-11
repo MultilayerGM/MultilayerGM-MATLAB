@@ -2,27 +2,27 @@ function distribution = DirichletNullDistribution(layers,varargin)
 % Generate a random categorical null distribution sampled from a symmetric Dirichlet distribution
 %
 % The null distributions for different layers are independent samples from
-% the same Dirichlet distribution. 
+% the same Dirichlet distribution.
 %
-% Note that the general format for a null distribution is 
+% Note that the general format for a null distribution is
 %
 %   community_assignment=function(node)
-% 
+%
 % where node is a row vector specifying a state node with format
 % '[node_id,aspect_1,...,aspect_d]'. Here we assume that the null
 % distribution is the same for all state nodes in a layer and hence the
 % first index is ignored.
 %
 % Input:
-% 
+%
 %   layers: Vector of the form [l_1,...,l_d] specifying the size of each
 %       aspect of the mutlilayer network
 %
-% Options: 
+% Options:
 %
 %   theta: [default: 1] Concentration parameter for the symmetric Dirichlet
 %       distribution
-%           
+%
 %   communities: [default: 10] Number of community labels
 %
 %   q: [default: 1] Probability for a community to be active in a layer
@@ -30,7 +30,7 @@ function distribution = DirichletNullDistribution(layers,varargin)
 %
 % Output:
 %
-%   distribution: Function that takes a state node 
+%   distribution: Function that takes a state node
 %       (format: [node,aspect_1,...,aspect_d] ) and returns a random
 %       community assignment from 1,...,'communities'
 %
@@ -41,17 +41,17 @@ function distribution = DirichletNullDistribution(layers,varargin)
 %
 %
 % References:
-% 
-%       [1] Generative benchmark models for mesoscale structure in multilayer 
-%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A. 
+%
+%       [1] Generative benchmark models for mesoscale structure in multilayer
+%       networks, M. Bazzi, L. G. S. Jeub, A. Arenas, S. D. Howison, M. A.
 %       Porter. arXiv1:608.06196.
 %
-% Citation: 
+% Citation:
 %
 %       If you use this code, please cite as
 %       Lucas G. S. Jeub and Marya Bazzi
-%       "A generative model for mesoscale structure in multilayer networks 
-%       implemented in MATLAB," https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016).
+%       "A generative model for mesoscale structure in multilayer networks
+%       implemented in MATLAB," https://github.com/MultilayerGM/MultilayerGM-MATLAB (2016-2019).
 
 parseArgs=inputParser();
 addParameter(parseArgs,'theta',1);

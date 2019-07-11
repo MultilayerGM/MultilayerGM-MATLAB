@@ -35,7 +35,7 @@ function P=MultiaspectDependencyMatrix(layers, p, type)
 %       If you use this code, please cite as
 %       Lucas G. S. Jeub and Marya Bazzi
 %       "A generative model for mesoscale structure in multilayer networks
-%       implemented in MATLAB," https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016).
+%       implemented in MATLAB," https://github.com/MultilayerGM/MultilayerGM-MATLAB (2016-2019).
 
   if sum(p)>1
       error('MultilayerBenchmark:MultiplexTemporalMatrix:probability',...
