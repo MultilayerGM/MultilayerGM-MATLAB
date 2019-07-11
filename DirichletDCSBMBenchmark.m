@@ -1,4 +1,4 @@
-function [A,S]=DirichletDCSBMBenchmark(nodes,layers,dependencyMatrix,varargin)
+function [A,S]=DirichletDCSBMBenchmark(nodes,layers,types,dependencyMatrix,varargin)
 % Generate multi-aspect multilayer networks with a DCSBM planted partition model
 %
 % Input:
@@ -6,6 +6,9 @@ function [A,S]=DirichletDCSBMBenchmark(nodes,layers,dependencyMatrix,varargin)
 %   nodes: Number of physical nodes
 %
 %   layers: Number of layers for each aspect
+%
+%   types: 'char' vector specifying the update type for each aspect, 'o' for
+%       ordered and 'r' for random.
 %
 %   dependencyMatrix: matrix of copying probabilities
 %
@@ -60,11 +63,11 @@ function [A,S]=DirichletDCSBMBenchmark(nodes,layers,dependencyMatrix,varargin)
 %       implemented in MATLAB," https://github.com/MultilayerBenchmark/MultilayerBenchmark (2016).
 
 
-% set defaults for all options (note that we force 'IntermediateSteps' to
-% have its default value since we are not using intermediate results)
+% set defaults for all options
 parsePartitionOptions=inputParser();
 parsePartitionOptions.KeepUnmatched=true;
 addParameter(parsePartitionOptions,'UpdateSteps',[]);
+addParameter(parsePartitionOptions,'InitialPartition',[])
 parse(parsePartitionOptions,varargin{:});
 PartitionOptions=NonDefaultOptions(parsePartitionOptions);
 
@@ -86,7 +89,7 @@ parse(parseNetworkOptions,parseNullOptions.Unmatched);
 NetworkOptions=NonDefaultOptions(parseNetworkOptions);
 
 % generate partition using Dirichlet null distribution
-S=PartitionGenerator(nodes,layers,dependencyMatrix,...
+S=PartitionGenerator(nodes,layers,types,dependencyMatrix,...
     DirichletNullDistribution(layers,NullOptions),PartitionOptions);
 
 % generate intralayer edges using DCSBM benchmark model
