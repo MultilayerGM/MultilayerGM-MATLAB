@@ -1,4 +1,4 @@
-function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,nullDistribution,varargin)
+function [S]=PartitionGenerator(nodes,layers,types,dependencyMatrix,nullDistribution,varargin)
 % Generate partition for a multilayer network
 % with specified interlayer dependencies.
 %
@@ -12,6 +12,9 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,null
 %   layers: Vector giving the number of elements for each aspect in the
 %       format [l_1,...,l_d]. Note that for a multilayer network with a
 %       single aspect this is just a scalar giving the number of layers.
+%
+%   types: 'char' vector specifying the update type for each aspect, 'o' for
+%       ordered and 'r' for random.
 %
 %   dependencyMatrix: A matrix of copying probabilities, corresponding to
 %       the flattened interlayer dependency tensor. This matrix is either
@@ -55,8 +58,6 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,null
 %       of the form [node, aspect_1,...,aspect_d] ) as input and returns a
 %       random community assignment.
 %
-%   initialPartition: Optionally specify starting partition (array of
-%       dimension nxl_1x...xl_d).
 %
 % Output:
 %
@@ -64,10 +65,6 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,null
 %       array of dimension nxl_1x...xl_d. In the case where state nodes are
 %       specified directly, missing state nodes have community label 0.
 %
-%   SIntermediate: Cell array of multilayer partitions at intermediate
-%       steps of the Markov chain (see 'IntermediateSteps'). First entry is
-%       always the initial partition and last entry is the final partition
-%       (the same as 'S').
 %
 % Options:
 %
@@ -77,12 +74,8 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,null
 %       provided transition matrix is fully ordered (i.e. has zero
 %       lower-triangular part.
 %
-%   IntermediateSteps: [default: []] number of Gibbs updates
-%       between sampled partitions from the same chain returned in
-%       'SIntermediate'. The initial partition and final partition are
-%       always included in 'SIntermediate'. Useful for looking at
-%       autocorrelation features of the Markov chain to verify it is
-%       consistent with having converged.
+%   InitialPartition: Optionally specify starting partition (array of
+%       dimension nxl_1x...xl_d).
 %
 %
 %
@@ -108,16 +101,8 @@ function [S,SIntermediate]=PartitionGenerator(nodes,layers,dependencyMatrix,null
 
 % Parse input
 parseArgs=inputParser();
-addParameter(parseArgs,'IntermediateSteps',[]);
 addParameter(parseArgs,'InitialPartition',[]);
-% check fully-ordered case:
-if any(any(tril(dependencyMatrix)))
-    % not fully ordered
-    addParameter(parseArgs,'UpdateSteps',100);
-else
-    % fully ordered, no need for multiple updates
-    addParameter(parseArgs,'UpdateSteps',1);
-end
+addParameter(parseArgs,'UpdateSteps',100);
 parse(parseArgs,varargin{:});
 options=parseArgs.Results;
 options.isset=@(s) ~isempty(options.(s));
@@ -135,67 +120,87 @@ nvm=size(nodes,1);
 % setup map from state nodes to rows of transition matrix
 if isequal(size(dependencyMatrix),[l,l])
     transitionMap=subarray2ind(layers,nodes(:,2:end));
+    isLayerCoupled=true;
 elseif isequal(size(dependencyMatrix),[nvm,nvm])
     transitionMap=(1:nvm)';
+    isLayerCoupled=false;
 else
     error('CommunityStructureGenerator:dependencyMatrix:size','Specified transition matrix is of inconsistent size');
 end
 
 % Sample partitions
-S=zeros([n,layers]);
-if options.isset('IntermediateSteps')
-    SIntermediate=cell(ceil(options.UpdateSteps/options.IntermediateSteps)+1,1);
-else
-    SIntermediate=cell(2,1);
-end
-
 if options.isset('InitialPartition')
     S=options.InitialPartition;
 else
+    S=zeros([n,layers]);
     for i=1:size(nodes,1)
         S(subarray2ind([n,layers],nodes(i,:)))=nullDistribution(nodes(i,:));
     end
 end
-SIntermediate{1}=S;
-usteps=options.UpdateSteps;
 
-if options.isset('IntermediateSteps')
-    totalsteps=0;
-    isteps=options.IntermediateSteps;
-    it=1;
-    while totalsteps+isteps<=usteps
-        S=GibbsPartitionSampler(S,nodes,transitionMap,dependencyMatrix,nullDistribution,isteps);
-        totalsteps=totalsteps+isteps;
-        it=it+1;
-        SIntermediate{it}=S;
-    end
-    
-    if totalsteps<usteps
-        S=GibbsPartitionSampler(S,nodes,transitionMap,dependencyMatrix,nullDistribution,usteps-totalsteps);
-        SIntermediate{it+1}=S;
-    end
+if all(types=='o')
+    usteps = 1
 else
-    S=GibbsPartitionSampler(S,nodes,transitionMap,dependencyMatrix,nullDistribution,usteps);
-    SIntermediate{2}=S;
+    usteps=options.UpdateSteps;
 end
 
+% set up
+shape_ordered = layers(types == 'o');
+if isempty(shape_ordered)
+    shape_ordered = 1;
+end
+if numel(shape_ordered) == 1
+    ordered_layers = cell(shape_ordered, 1);
+else
+    ordered_layers = cell(shape_ordered);
+end
+
+shape_random = layers(types == 'r');
+if isempty(shape_random)
+    shape_random = 1;
+end
+if numel(shape_random) == 1
+    shape_random = [shape_random, shape_random];
+end
+for i = 1:numel(ordered_layers)
+    ordered_layers{i} = cell(shape_random);
+end
+
+for i=1:size(nodes,1)
+    li = nodes(i, 2:end);
+    oi = li(types=='o');
+    if isempty(oi)
+        oi = 1;
+    end
+    ri = li(types=='r');
+    if isempty(ri)
+        ri = 1;
+    end
+    ordered_layers{oi}{ri} = [ordered_layers{oi}{ri}; nodes(i, :)];
+end
+
+for o=1:numel(ordered_layers)
+    S=GibbsPartitionSampler(S,ordered_layers{o},transitionMap,dependencyMatrix,isLayerCoupled,nullDistribution,usteps);
+end
 end
 
 % Gibbs sampling
-function S=GibbsPartitionSampler(S,nodes,transitionMap,dependencyMatrix,nullDistribution,steps)
+function S=GibbsPartitionSampler(S,random_layers,transitionMap,dependencyMatrix,isLayerCoupled,nullDistribution,steps)
 % Run Gibbs sampling
 %
 % Inputs:
 %
 %   S: current multilayer partition
 %
-%   nodes: matrix of statenodes (each state node is a row) with format
-%       [node,aspect_1,...,aspect_d]
+%   random_layers: cell array of matrices of statenodes (each state node is a row with format
+%       [node,aspect_1,...,aspect_d]), one for each random layer
 %
 %   transitionMap: vector of indeces mapping statenodes to the
 %       corresponding row/column of the dependencyMatrix
 %
 %   dependencyMatrix: coupling edges (sum(dependencyMatrix,1)<=1)
+%
+%   isLayerCoupled: bool, true if dependencyMatrix is layer-coupled, false otherwise
 %
 %   nullDistribution: function (statenode->random community assignment)
 %
@@ -211,9 +216,10 @@ LW=cumsum(dependencyMatrix,1);
 
 size_spec=size(S);
 
-if size(dependencyMatrix,1)<size(nodes,1)
+if isLayerCoupled
     % layer-coupled
-    for i=1:steps
+    for i=randi(numel(random_layers),[1, steps*numel(random_layers)])
+        nodes = random_layers{i};
         for j=1:size(nodes,1)
             nodeind=subarray2ind(size_spec,nodes(j,:));
             decide=rand();
@@ -226,7 +232,8 @@ if size(dependencyMatrix,1)<size(nodes,1)
     end
 else
     % general case
-    for i=1:steps
+    for i=1:randi(numel(random_layers),[1, steps*numel(random_layers)])
+        nodes = random_layers{i};
         for j=1:size(nodes,1)
             nodeind=subarray2ind(size_spec,nodes(j,:));
             decide=rand();
