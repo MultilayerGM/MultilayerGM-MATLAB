@@ -223,8 +223,8 @@ if isLayerCoupled
         for j=1:size(nodes,1)
             nodeind=subarray2ind(size_spec,nodes(j,:));
             decide=rand();
-            if decide<not_resample(transitionMap(j))
-                S(nodeind)=S(nodes(j,1),ind2sub(size_spec(2:end),find(LW(:,transitionMap(j))>decide,1)));
+            if decide<not_resample(transitionMap(nodeind))
+                S(nodeind)=S(nodes(j,1),ind2sub(size_spec(2:end),find(LW(:,transitionMap(nodeind))>decide,1)));
             else
                 S(nodeind)=nullDistribution(nodes(j,:));
             end
@@ -237,8 +237,8 @@ else
         for j=1:size(nodes,1)
             nodeind=subarray2ind(size_spec,nodes(j,:));
             decide=rand();
-            if decide<not_resample(transitionMap(j))
-                S(nodeind)=S(subarray2ind(size_spec,nodes(find(LW(:,transitionMap(j))>decide,1),:)));
+            if decide<not_resample(transitionMap(nodeind))
+                S(nodeind)=S(subarray2ind(size_spec,nodes(find(LW(:,transitionMap(nodeind))>decide,1),:)));
             else
                 S(nodeind)=nullDistribution(nodes(j,:));
             end
